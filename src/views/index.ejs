@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title><%= title %> <%= name %></title>
+
+	<script src="/socket.io/socket.io.js"></script>
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <!-- jQuery UI -->
+	<link href = "https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel = "stylesheet">
+    <!-- Custom fonts for this template -->
+    <link href="vendor/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <!-- Plugin CSS -->
+    <link href="vendor/magnific-popup/magnific-popup.css" rel="stylesheet" type="text/css">
+    <!-- Custom styles for this template -->
+	<link href="css/freelancer.css" rel="stylesheet">
+	<!-- My custom style -->
+	<link href="css/custom.css" rel="stylesheet">
+  </head>
+
+  <body id="page-top">
+	<!-- Navigation -->
+	<nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase navbar-shrink" id="mainNav">
+		<div class="container">
+			<a class="navbar-brand js-scroll-trigger" href="#page-top">D<!--iXit--></a>
+			<button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+			Menu
+			<i class="fa fa-bars"></i>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarResponsive">
+				<ul class="navbar-nav ml-auto">
+					<% if (id == 0) { %>
+						<li class="nav-item mx-0 mx-lg-1">
+							<a class="nav-link py-3 px-0 px-lg-3 rounded" href="#" id="start" onclick="startEmit()">Start Game</a>
+						</li>
+						<li class="nav-item mx-0 mx-lg-1">
+							<a class="nav-link py-3 px-0 px-lg-3 rounded" href="#" id="restart" onclick="restartEmit()">Restart Game</a>
+						</li>
+						<li class="nav-item mx-0 mx-lg-1">
+							<a class="nav-link py-3 px-0 px-lg-3 rounded" href="#" id="end" onclick="endEmit()">End Game</a>
+						</li>
+						<li class="nav-item mx-0 mx-lg-1">
+							<a class="nav-link py-3 px-0 px-lg-3 rounded" href="#" id="next" onclick="nextEmit()">Next Round</a>
+						</li>
+						<li class="nav-item mx-0 mx-lg-1">
+							<a class="nav-link py-3 px-0 px-lg-3 rounded" href="#" id="kick" onclick="kickEmit()">Kick All</a>
+						</li>
+					<% } %>
+					<li class="nav-item mx-0 mx-lg-1 py-3 px-0 px-lg-3 rounded login" id="login-name">
+						<%=name%>
+					</li>
+					<div class="field-col-token color-active color-<%= id %>" id="login-token"><%= token %></div>
+					<li class="nav-item mx-0 mx-lg-1">
+						<a class="nav-link py-3 px-0 px-lg-3 rounded" href="./" id="logout">Logout</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+    <!-- Portfolio Grid Section -->
+	<div class="container">
+
+		<div class="row" style="margin-top: 60px;">
+			<!-- Playground -->
+			<div class="col-sm-2 col-md-2 col-lg-2">
+				<div class="field">
+					<div class="field-row-edge">
+						<div class="row-edge-float">START</div>
+						<% for(var j=0; j<maxPlayers; j++) { %>
+							<div class="field-col color-<%= j %> col-edge col-edge-start" id="0_<%= j %>"></div>
+						<% } %>
+					</div>
+					<% for(var i=1; i<trackLength; i++) { %>
+						<div class="field-row">
+							<% for(var j=0; j<maxPlayers; j++) { %>
+								<div class="field-col color-<%= j %>" id="<%= i %>_<%= j %>"></div>
+							<% } %>
+						</div>
+					<% } %>
+					<div class="field-row-edge">
+					<div class="row-edge-float">FINISH</div>
+						<% for(var j=0; j<maxPlayers; j++) { %>
+							<div class="field-col color-<%= j %> col-edge col-edge-end" id="<%= trackLength %>_<%= j %>"></div>
+						<% } %>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-10 col-md-10 col-lg-10">
+				<!-- Message -->
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="message" id="message"></div>
+					</div>
+				</div>
+				<!-- Desk Cards -->
+				<div class="row row-table">
+					<div class="col-lg-12">
+						<div class="card-label desk-upper-label">Cards on Table</div>
+					</div>
+				</div>
+				<div class="row row-table">
+					<% for(var i=0; i<maxPlayers; i++) { %>
+						<div class="col-sm-6 col-md-4 col-lg-2_4">
+							<img class="img-fluid img-card desk-card" src="img/cards/<%= cardsFolder %>card.jpg" id="card-desk-<%= i %>" x-pos="<%= i %>">
+						</div>
+					<% } %>
+				</div>
+				<div class="row row-table">
+					<% for(var i=1; i<=maxPlayers; i++) { %>
+						<div class="col-lg-2_4">
+							<div class="card-label desk-bottom-label" id="desk-label-<%= i-1 %>" x-pos="<%= i-1 %>"><%= i %></div>
+						</div>
+					<% } %>
+				</div>
+				<hr class="custom">
+				<!-- Hand Cards -->
+				<div class="row row-table">
+					<div class="col-lg-12">
+						<div class="card-label hand-label">Cards on Hand</div>
+					</div>
+				</div>
+				<div class="row row-hand">
+					<% for(var i=0; i<dealtCards; i++) { %>
+						<div class="col-lg-2_4">
+							<img class="img-fluid img-card hand-card" src="img/cards/<%= cardsFolder %>card.jpg" id="card-hand-<%= i %>" x-pos="<%= i %>">
+						</div>
+					<% } %>
+				</div>
+			</div>
+			
+		</div>
+	</div>
+	
+	<!-- Dialog for set hint -->
+	<div id="dialog-hint" title="Hint for Card">
+		<form>
+			<center><img style="width: 220px;" src="img/cards/<%= cardsFolder %>card.jpg" id="dialog-card"></center><br>
+			<label for="hint">Name</label>
+			<input type="text" name="hint" id="hint" class="text ui-widget-content ui-corner-all" value="" />
+		</form>
+	</div>
+	<!-- Dialog for simple message -->
+	<div id="dialog-simple" title="DiXit Message">
+		<p id="dialog-simple-text"></p>
+	</div>
+	<!-- Dialog for kick message -->
+	<div id="dialog-kick" title="DiXit Message">
+		<p id="dialog-kick-text">You were logged out by admin player.</p>
+	</div>
+
+	<!-- Firebase
+	<script src="https://www.gstatic.com/firebasejs/5.0.3/firebase.js"></script>
+	<script>
+		// Initialize Firebase
+		var config = {
+			apiKey: "AIzaSyCleUhD5AhPyeAgj1N3gk1cfiI8cDGr0hw",
+			authDomain: "dixit-65dfd.firebaseapp.com",
+			databaseURL: "https://dixit-65dfd.firebaseio.com",
+			projectId: "dixit-65dfd",
+			storageBucket: "dixit-65dfd.appspot.com",
+			messagingSenderId: "735565549167"
+		};
+		firebase.initializeApp(config);
+	</script>
+	 -->
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.js"></script>
+    <!-- jQuery UI -->
+	<script src = "https://code.jquery.com/jquery-1.10.2.js"></script>
+	<script src = "https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+    <!-- Plugin JavaScript -->
+    <script src="vendor/jquery-easing/jquery.easing.js"></script>
+    <script src="vendor/magnific-popup/jquery.magnific-popup.js"></script>
+    <!-- Contact Form JavaScript -->
+    <script src="js/jqBootstrapValidation.js"></script>
+    <script src="js/contact_me.js"></script>
+    <!-- Custom scripts for this template -->
+	<script src="js/freelancer.js"></script>
+	<!-- My Scripts -->
+	<script>
+		var trackLength = <%= trackLength %>;
+		var maxPlayers = <%= maxPlayers %>;
+		var dealtCards = <%= dealtCards %>;
+		var cardsFolder = '<%= cardsFolder %>';
+		var token = '<%= token %>';
+		var id = <%= id %>;
+		var loggedNames = <%-JSON.stringify(loggedNames)%>;
+		var cardPlaced = false;
+		var cardGuessed = false;
+		var hintSetterId;
+		var playersCount;
+		var placedCardPos;
+		var allCardsPlaced;
+		var gameLocal = {};
+		var nextPossible = false;
+	</script>
+	<script src="js/index.js"></script>
+  </body>
+</html>

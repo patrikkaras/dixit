@@ -1,0 +1,181 @@
+img.img-card.on-move {
+	cursor: pointer;
+}
+div.field {
+	background-color: rgb(209, 209, 209);
+}
+div.field-col {
+	width: 20%;
+	height: 100%;
+	float: left;
+	border: 2px solid black;
+	border-radius: 50%;
+	text-align: center;
+	font-weight: bolder;
+	color: white;
+}
+div.field-row {
+	height: 32px;
+}
+div.field-row-edge {
+	height: 34px;
+	border-width : 1px 0px 1px 0px;
+	border-style: solid;
+	border-color: black;
+}
+div.field-col.col-edge {
+	border: 2px solid;
+	border-color: none;
+}
+div.row-hand {
+	/* background-color: rgb(241, 189, 121); */
+}
+div.row-table {
+	/* background-color: rgb(158, 224, 131); */
+}
+
+div.color-0.color-active {
+	background-color: blue;
+}
+div.color-1.color-active {
+	background-color: green;
+}
+div.color-2.color-active {
+	background-color: red;
+}
+div.color-3.color-active {
+	background-color: purple;
+}
+div.color-4.color-active {
+	background-color: orange;
+}
+
+
+div.token-move {
+	color: black;
+	box-shadow: 0px 0px 10px 8px white;
+}
+
+div.color-0.color-active.token-move {
+	background: radial-gradient(white, blue);
+}
+div.color-1.color-active.token-move {
+	background:radial-gradient(white, green);
+}
+div.color-2.color-active.token-move {
+	background: radial-gradient(white, red);;
+}
+div.color-3.color-active.token-move {
+	background: radial-gradient(white, purple);;
+}
+div.color-4.color-active.token-move {
+	background: radial-gradient(white, orange);;
+}
+
+li.login {
+	color: black;
+}
+#login-token {
+	color: white;
+	font-family: 'Lato';
+	text-align: center;
+	height: 28px;
+	width: 28px;
+	border-radius: 50%;
+	margin: auto;
+}
+.card-label {
+	color: white;
+	font-family: 'Lato';
+	text-align: center;
+	border-width: 3px 3px 0px 3px;
+}
+div.hand-label {
+	background-color: rgb(196, 149, 48);
+	border-radius: 24px 24px 0px 0px;
+}
+div.desk-upper-label {
+	background-color: rgb(74, 150, 108);
+	border-radius: 24px 24px 0px 0px;
+}
+div.desk-bottom-label {
+	background-color: rgb(74, 150, 108);
+	border-radius: 0px 0px 24px 24px;
+}
+hr.custom {
+	margin: 5px;
+}
+div.row-edge-float {
+	position: absolute;
+	width: calc(100% - 30px);
+	margin-top: 4px;
+	text-align: center;
+	opacity: 0.5;
+}
+#login-name {
+	text-transform: none;
+}
+div.message {
+}
+
+div.tokens-on-card {
+	position:absolute;
+	bottom:0;
+}
+
+div.field-col.color-active.token-in-tokens {
+	height: 30px;
+	width: 30px;
+}
+
+img.mark-card {
+	border: solid rgb(196, 149, 48);
+	border-width: 2px 2px 4px 2px;
+}
+
+div.mark-card-label {
+	background-color: rgb(196, 149, 48);
+}
+
+.text-color-0 {
+	color: blue;
+}
+.text-color-1 {
+	color: green;
+}
+.text-color-2 {
+	color: red;
+}
+.text-color-3 {
+	color: purple;
+}
+.text-color-4 {
+	color: orange;
+}
+
+.token-on-label {
+	width: 24px;
+	height: 24px;
+	border-radius: 50%;
+	text-align: center;
+	font-weight: bolder;
+	color: white;
+	font-size: 14px;
+	margin: auto;
+}
+
+.hover-shadow[x-card-id] {
+	box-shadow: 5px 5px 5px 5px grey;
+}
+/* .card-label.hover-shadow {
+	box-shadow: 5px 5px 5px 5px grey;
+} */
+.img-card.hover-shadow[x-card-id]:hover {
+	opacity: 0.8;
+	box-shadow: 8px 8px 15px 8px grey;
+}
+
+/* jquery-ui override */
+.ui-widget-content {
+	background: rgb(240,240,240);
+}

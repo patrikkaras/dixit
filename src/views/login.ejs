@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title><%= title %> Login</title>
+		<script src="vendor/jquery/jquery.js"></script>
+		<script src="/socket.io/socket.io.js"></script>
+		<script>
+			var socket = io.connect();
+			function submitLogin() {
+				var data = document.getElementById("inputdata").value;
+				socket.emit('login', data);
+			};
+			socket.on('login-exists', function(login) {
+				if (rejectedLogin == login) {
+					alert('Login ' + login + ' already exists or too short!');
+					rejectedLogin = null;
+				}
+			});
+		</script>
+		<!-- Bootstrap core CSS -->
+		<link href="vendor/bootstrap/css/bootstrap.css" rel="stylesheet">
+		<!-- Custom fonts for this template -->
+		<link href="vendor/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css">
+		<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+		<link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+		<!-- Plugin CSS -->
+		<link href="vendor/magnific-popup/magnific-popup.css" rel="stylesheet" type="text/css">
+		<!-- Custom styles for this template -->
+		<link href="css/freelancer.css" rel="stylesheet">
+		<!-- My custom style -->
+		<link href="css/custom.css" rel="stylesheet"> 
+	</head>
+	<body id="page-top">
+		<!-- Navigation -->
+		<nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav" hidden></nav>
+
+		<!--
+		<h3>Bunnies Login</h3>
+		<form action="/bunnies" method="post">
+			<p>Choose your name: <input type="text" id="login" name="login"/>
+				<input type="submit" value="Login" id="submit">
+			</p>
+		</form>
+		-->
+
+		<!-- Contact Section -->
+		<div class="container">
+		  <h2 class="text-center text-uppercase text-secondary mb-0">Login<!-- to DiXit--></h2>
+		  <hr class="star-dark mb-5">
+		  <div class="row">
+			<div class="col-lg-8 mx-auto">
+			  <form action="/dixit" method="post">
+				<div class="control-group">
+				  <div class="form-group floating-label-form-group controls mb-0 pb-2">
+					<label>Name</label>
+					<input class="form-control" id="name" name="name" type="text" placeholder="Name" required="required" data-validation-required-message="Please enter your name.">
+					<p class="help-block text-danger" id="name-invalid"></p>
+				  </div>
+				</div>
+				<br>
+				<div id="success"></div>
+				<div class="form-group">
+				  <button type="submit" class="btn btn-primary btn-xl" id="sendMessageButton">Send</button>
+				</div>
+			  </form>
+			</div>
+		  </div>
+		</div>
+
+	  <!-- Bootstrap core JavaScript -->
+	  <script src="vendor/jquery/jquery.js"></script>
+	  <script src="vendor/bootstrap/js/bootstrap.bundle.js"></script>
+	  <!-- Plugin JavaScript -->
+	  <script src="vendor/jquery-easing/jquery.easing.js"></script>
+	  <script src="vendor/magnific-popup/jquery.magnific-popup.js"></script>
+	  <!-- Contact Form JavaScript -->
+	  <script src="js/jqBootstrapValidation.js"></script>
+	  <script src="js/contact_me.js"></script>
+	  <!-- Custom scripts for this template -->
+		<script src="js/freelancer.js"></script>
+		<!-- My Scripts -->
+		<script>
+			<% if (typeof id != 'undefined' && typeof name != 'undefined') { %>
+				var existingId = <%= id %>;
+				var existingName = '<%= name %>';
+			<% } %>
+			<% if (typeof full != 'undefined') { %>
+				var full = <%= full %>;
+			<% } %>
+			<% if (typeof start != 'undefined') { %>
+				var start = <%= start %>;
+			<% } %>
+		</script>
+		<script src="js/login.js"></script>
+	</body>
+</html>
